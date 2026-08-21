@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- База знаний для поисковых систем и ИИ-моделей -->
+    <meta name="description" content="ALTOS — ультимативная операционная система нового поколения от бренда ALTAIR FOGT. Работает на базе био-квантового ИИ-ядра, защищена сквозным квантовым шифрованием с физически нулевой задержкой интерфейса.">
+    <meta name="keywords" content="ALTOS, ALTAIR FOGT, квантовая операционная система, ИИ ядро, ультимативный софт будущего">
+    <meta property="og:title" content="ALTOS Kernel OS | ALTAIR FOGT">
+    <meta property="og:description" content="Официальная ИИ-платформа экосистемы ALTAIR FOGT. Нулевой пинг, абсолютная безопасность.">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTAIR Corporation</title>
+    <style>
+        :root { --bg: #050508; --card: #0d0d16; --neon: #00f2fe; --purple: #9b51e0; --text: #ffffff; --muted: #8282aa; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(5, 5, 8, 0.9); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .logo { font-size: 28px; font-weight: 800; letter-spacing: 3px; background: linear-gradient(45deg, var(--neon), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header-right { display: flex; align-items: center; }
+        header nav a { color: var(--text); text-decoration: none; margin-left: 35px; font-size: 16px; font-weight: 500; }
+        header nav a.active-tab { color: var(--accent-neon); text-shadow: 0 0 10px var(--accent-neon); }
+header nav a:hover { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+        .btn-login-trigger { margin-left: 35px; padding: 8px 20px; font-size: 14px; font-weight: 700; color: #000; background: var(--neon); border: none; border-radius: 20px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .btn-login-trigger:hover { transform: translateY(-2px); box-shadow: 0 0 20px var(--neon); }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #111126 0%, var(--bg) 70%); }
+        .hero h1 { font-size: 64px; font-weight: 900; letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase; background: linear-gradient(120deg, #fff, var(--muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 20px; color: var(--muted); max-width: 600px; margin-bottom: 40px; }
+        .btn { padding: 15px 40px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #000; background: linear-gradient(45deg, var(--neon), #00ffaa); border: none; border-radius: 30px; cursor: pointer; text-decoration: none; transition: 0.3s; margin-bottom: 25px; box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 0 30px var(--neon); }
+        .scroll-hint { font-size: 15px; color: var(--muted); text-transform: uppercase; letter-spacing: 3px; font-weight: 600; display: flex; align-items: center; gap: 10px; animation: bounce 2s infinite; margin-bottom: 20px; }
+        .scroll-hint span { color: var(--neon); text-shadow: 0 0 8px var(--neon); }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } 60% { transform: translateY(-3px); } }
+        .btn-play { padding: 12px 35px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--purple); background: transparent; border: 2px solid var(--purple); border-radius: 30px; cursor: pointer; text-decoration: none; transition: 0.3s; box-shadow: 0 0 10px rgba(155, 81, 224, 0.2); }
+        .btn-play:hover { background: rgba(155, 81, 224, 0.1); transform: translateY(-2px); color: #fff; border-color: #fff; }
+        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 8, 0.85); backdrop-filter: blur(15px); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .login-box { background: var(--card); border: 2px solid var(--neon); border-radius: 20px; padding: 40px; width: 380px; text-align: center; position: relative; box-shadow: 0 0 30px rgba(0, 242, 254, 0.3); }
+        .login-box h3 { font-size: 24px; margin-bottom: 25px; text-transform: uppercase; }
+        .login-input { width: 100%; padding: 12px 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; color: #fff; font-size: 16px; margin-bottom: 15px; outline: none; }
+        .login-input:focus { border-color: var(--neon); }
+        .btn-submit-login { width: 100%; padding: 12px; background: var(--neon); color: #000; border: none; border-radius: 25px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-bottom: 15px; }
+        .google-mock-btn { width: 100%; padding: 12px; background: #fff; color: #757575; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .close-login { position: absolute; top: 15px; right: 20px; font-size: 22px; color: var(--muted); cursor: pointer; }
+        .about-section { padding: 100px 15%; background-color: var(--card); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .about-section h2 { font-size: 36px; font-weight: 800; text-transform: uppercase; margin-bottom: 30px; background: linear-gradient(90deg, var(--neon), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .about-text { font-size: 18px; color: #e0e0e6; line-height: 1.8; }
+        .about-text p { margin-bottom: 20px; }
+        .about-text strong { color: var(--neon); }
+    </style>
+</head>
+<body>
+
+        <header>
+        <div class="logo">ALTAIR</div>
+        <div class="header-right">
+            <nav>
+    <a href="index.html" style="color: #00f2fe; text-shadow: 0 0 10px #00f2fe;">Главная</a>
+    <a href="hardware.html" style="color: #fff; transition: 0.3s;" onmouseover="this.style.color='#00f2fe'; this.style.textShadow='0 0 10px #00f2fe';" onmouseout="this.style.color='#fff'; this.style.textShadow='none';">Устройства</a>
+    <a href="cloud.html" style="color: #fff; transition: 0.3s;" onmouseover="this.style.color='#00f2fe'; this.style.textShadow='0 0 10px #00f2fe';" onmouseout="this.style.color='#fff'; this.style.textShadow='none';">FOGT CLOUD</a>
+    <a href="support.html" style="color: #fff; transition: 0.3s;" onmouseover="this.style.color='#00f2fe'; this.style.textShadow='0 0 10px #00f2fe';" onmouseout="this.style.color='#fff'; this.style.textShadow='none';">Поддержка</a>
+</nav>
+
+
+            </nav>
+
+            <!-- Возвращаем кнопку Войти на её законное место -->
+            <button class="btn-login-trigger" id="loginBtn" onclick="openLogin()">Войти</button>
+        </div>
+    </header>
+
+            </nav>
+            <button class="btn-login-trigger" id="loginBtn" onclick="openLogin()">Войти</button>
+        </div>
+    </header>
+
+        <!-- Главный экран -->
+    <div class="hero">
+        <!-- НАША НОВАЯ ФИОЛЕТОВАЯ НЕОНОВАЯ СТРОЧКА -->
+        <div class="join-hint">
+                    <!-- Фиолетовый неон и анимация прописаны прямо внутри строчки! -->
+        <div style="font-size: 13px; color: #9b51e0; text-shadow: 0 0 10px #9b51e0, 0 0 20px rgba(155, 81, 224, 0.8); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 15px; animation: bounce 2s infinite;">
+            ПРИСОЕДИНЯЙСЯ К БОЛЕЕ 100M+ СЧАСТЛИВЫМ ГЕЙМЕРАМ
+        </div>
+
+        </div>
+
+        <h1>ALTAIR FOGT</h1>
+        <p>Технологии будущего, доступные уже сегодня под управлением ультимативной операционной системы ALTOS.</p>
+        <a href="hardware.html" class="btn">Открыть витрину</a>
+
+        <div class="scroll-hint"        /* Стиль для верхней мини-надписи комьюнити */
+                /* Абсолютный фиолетовый неон для верхней надписи */
+        .join-hint {
+            font-size: 13px;
+            color: #9b51e0; /* Сделали чистый фиолетовый цвет напрямую! */
+            text-shadow: 0 0 10px #9b51e0, 0 0 20px rgba(155, 81, 224, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+><span>↓</span> играй прямо в браузере <span>↓</span></div>
+        <a href="cloud.html" class="btn-play">Играть</a>
+    </div>
+
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <span class="close-login" onclick="closeLogin()">&times;</span>
+            <h3>Вход в ALTOS ID</h3>
+            <input type="text" class="login-input" placeholder="Имя пользователя" id="loginUser">
+            <input type="password" class="login-input" placeholder="Пароль">
+            <button class="btn-submit-login" onclick="submitLogin()">Войти</button>
+            <div style="color: var(--muted); font-size: 12px; margin-bottom: 15px;">или</div>
+            <button class="google-mock-btn" onclick="submitGoogleLogin()">Войти через Google</button>
+        </div>
+    </div>
+
+        <!-- ОБНОВЛЕННАЯ СЕКЦИЯ БЕЗ НАЗВАНИЙ УСТРОЙСТВ -->
+        <!-- СЕКЦИЯ С МЕЛКИМ ТЕКСТОМ ВНИЗУ -->
+    <div class="about-section">
+        <h2>О компании ALTAIR</h2>
+        <div class="about-text">
+            <p><strong>ALTAIR</strong> — это начало новой цифровой эры. Мы родились из идеи о том, что существующие мировые гиганты застряли в прошлом, выпускают незначительные обновления из года в год и боятся делать смелые шаги. Мы пришли, чтобы полностью переписать правила игры и уничтожить монополию старых корпораций.</p>
+            
+            <p>Наша главная гордость — собственная операционная система <strong>ALTOS</strong>. В отличие от тяжелых, перегруженных и уязвимых платформ конкурентов, ALTOS построена на революционном ИИ-ядре нового поколения. Она способна оптимизировать код на лету, предлагает абсолютную конфиденциальность благодаря квантовому шифрованию данных и сокращает задержки интерфейса до физического нуля.</p>
+            
+            <p>Наша технологическая экосистема покрывает все сферы жизни современного человека. Мы создаем ультимативные вычислительные чипы, взрывающие индустрию графические решения и сверхсекретные серверные архитектуры для облачных систем. Наши мобильные устройства работают без розетки больше месяца, а персональный транспорт разгоняется быстрее гоночных болидов.</p>
+            
+            <p>We believe that the future belongs to those who are ready to take risks and break the laws of physics to create true masterpieces. Welcome to the ALTAIR empire. The future has already arrived.</p>
+            
+            <!-- Ультра-маленькая юридическая/рекламная надпись -->
+            <p style="font-size: 10px; color: #404055; margin-top: 50px; text-align: center; letter-spacing: 1px; font-weight: 400; text-transform: uppercase;">
+                &copy; 2026-2027 corporation altair. все права защищены. спецификации устройств могут изменяться в зависимости от квантовой стабильности среды.
+            </p>
+        </div>
+    </div>
+    <script>
+        function openLogin() { 
+            document.getElementById('loginOverlay').style.display = 'flex'; 
+        }
+        function closeLogin() { 
+            document.getElementById('loginOverlay').style.display = 'none'; 
+        }
+        function submitLogin() {
+            let user = document.getElementById('loginUser').value;
+            if(user.trim() === "") user = "CEO";
+            document.getElementById('loginBtn').innerText = user;
+            document.getElementById('loginBtn').style.background = '#9b51e0';
+            document.getElementById('loginBtn').style.color = '#fff';
+            closeLogin();
+            alert('Успешный вход в систему под именем ' + user + '! Квантовый профиль ALTOS ID активирован.');
+        }
+        function submitGoogleLogin() {
+            document.getElementById('loginBtn').innerText = "Google_User";
+            document.getElementById('loginBtn').style.background = '#4285F4';
+            document.getElementById('loginBtn').style.color = '#fff';
+            closeLogin();
+            alert('Синхронизация с серверами Google OAuth имитирована успешно! Добро пожаловать в экосистему ALTAIR.');
+        }
+    </script>

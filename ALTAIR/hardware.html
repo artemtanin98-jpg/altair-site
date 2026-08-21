@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTAIR Hardware | Устройства</title>
+    <style>
+        :root {
+            --bg-color: #050508;
+            --card-bg: #0d0d16;
+            --accent-neon: #00f2fe;
+            --accent-purple: #9b51e0;
+            --accent-gold: #ffb800;
+            --text-main: #ffffff;
+            --text-muted: #8282aa;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding-top: 100px; }
+
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 8%; background: rgba(5, 5, 8, 0.9); backdrop-filter: blur(10px);
+            position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+            font-size: 28px; font-weight: 800; letter-spacing: 3px;
+            background: linear-gradient(45deg, var(--accent-neon), var(--accent-purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        header nav a {
+            color: var(--text-main); text-decoration: none; margin-left: 35px;
+            font-size: 16px; font-weight: 500; transition: 0.3s;
+        }
+
+        header nav a:hover { color: var(--accent-neon); text-shadow: 0 0 10px var(--accent-neon); }
+
+        section { padding: 40px 8%; }
+        section h2 {
+            font-size: 38px; text-align: center; margin-bottom: 10px; text-transform: uppercase;
+            letter-spacing: 2px; background: linear-gradient(90deg, var(--accent-neon), var(--accent-purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 60px; font-size: 18px; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .product-card { background-color: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 30px; transition: 0.4s; }
+        .product-card:hover { transform: translateY(-10px); border-color: var(--accent-neon); box-shadow: 0 0 20px rgba(0, 242, 254, 0.2); }
+        .product-card h3 { font-size: 22px; margin-bottom: 15px; color: #fff; }
+        
+        .tag { background: rgba(0, 242, 254, 0.1); color: var(--accent-neon); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 15px; text-transform: uppercase; }
+        .product-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; height: 45px; }
+        .specs-list { list-style: none; }
+        .specs-list li { font-size: 14px; margin-bottom: 10px; color: #e0e0e6; }
+        .specs-list li::before { content: "⚡ "; color: var(--accent-neon); }
+            /* Стили для поисковой строки ALTAIR */
+        .search-container { display: flex; justify-content: center; margin-bottom: 25px; width: 100%; }
+        .search-input { width: 100%; max-width: 500px; padding: 14px 25px; font-size: 16px; color: #fff; background: rgba(255,255,255,0.02); border: 2px solid rgba(255,255,255,0.05); border-radius: 30px; outline: none; transition: 0.3s; text-align: center; }
+        .search-input:focus { border-color: var(--accent-neon); box-shadow: 0 0 20px rgba(0, 242, 254, 0.3); background: rgba(255,255,255,0.05); }
+        .search-input::placeholder { color: var(--text-muted); letter-spacing: 1px; }
+
+        /* Окно входа ALTOS ID */
+        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 8, 0.85); backdrop-filter: blur(15px); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .login-box { background: var(--card-bg); border: 2px solid var(--accent-neon); border-radius: 20px; padding: 40px; width: 380px; text-align: center; position: relative; box-shadow: 0 0 30px rgba(0, 242, 254, 0.3); }
+        .login-box h3 { font-size: 24px; margin-bottom: 25px; text-transform: uppercase; color: #fff; }
+        .login-input { width: 100%; padding: 12px 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; color: #fff; font-size: 16px; margin-bottom: 15px; outline: none; }
+        .login-input:focus { border-color: var(--accent-neon); }
+        .btn-submit-login { width: 100%; padding: 12px; background: var(--accent-neon); color: #000; border: none; border-radius: 25px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-bottom: 15px; }
+        .google-mock-btn { width: 100%; padding: 12px; background: #fff; color: #757575; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .close-login { position: absolute; top: 15px; right: 20px; font-size: 22px; color: var(--text-muted); cursor: pointer; }
+        /* Эффект наведения мышки: кнопка приподнимается и взрывается неон-свечением */
+                        .btn-login-trigger {
+            margin-left: 35px;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #000;
+            background: var(--accent-neon);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-login-trigger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+        }
+
+
+</style>
+</head>
+<body>
+
+    <header>
+                        <div class="logo">ALTAIR</div>
+        <div class="header-right">
+            <nav style="display: inline-block;">
+    <a href="index.html" style="color: #fff; transition: 0.3s;" onmouseover="this.style.color='#00f2fe'; this.style.textShadow='0 0 10px #00f2fe';" onmouseout="this.style.color='#fff'; this.style.textShadow='none';">Главная</a>
+    <a href="hardware.html" style="color: #00f2fe; text-shadow: 0 0 10px #00f2fe;">Устройства</a>
+    <a href="cloud.html" style="color: #fff; transition: 0.3s;" onmouseover="this.style.color='#00f2fe'; this.style.textShadow='0 0 10px #00f2fe';" onmouseout="this.style.color='#fff'; this.style.textShadow='none';">FOGT CLOUD</a>
+    <a href="support.html" style="color: #fff; transition: 0.3s;" onmouseover="this.style.color='#00f2fe'; this.style.textShadow='0 0 10px #00f2fe';" onmouseout="this.style.color='#fff'; this.style.textShadow='none';">Поддержка</a>
+</nav>
+
+            </nav>
+            <button class="btn-login-trigger" id="loginBtn" onclick="openLogin()">Войти</button>
+        </div>
+
+
+
+        </nav>
+    </header>
+    <!-- Окно входа -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <span class="close-login" onclick="closeLogin()">&times;</span>
+            <h3>Вход в ALTOS ID</h3>
+            <input type="text" class="login-input" placeholder="Имя пользователя" id="loginUser">
+            <input type="password" class="login-input" placeholder="Пароль">
+            <button class="btn-submit-login" onclick="submitLogin()">Войти</button>
+            <div style="color: var(--text-muted); font-size: 12px; margin-bottom: 15px;">или</div>
+            <button class="google-mock-btn" onclick="submitGoogleLogin()">Войти через Google</button>
+        </div>
+    </div>
+
+
+   <section>
+                <section>
+        <h2>Каталог Устройств</h2>
+        <p class="subtitle">Ультимативное железо будущего под управлением операционной системы ALTOS</p>
+        
+        <!-- ВСТАВЛЯЙ ЖИВОЙ ПОИСК СТРОГО СЮДА -->
+        <div class="search-container">
+            <input type="text" id="catalogSearch" class="search-input" placeholder="Введите название устройства для поиска..." oninput="liveSearch()">
+                <!-- Вкладки фильтрации Проекта ALTAIR -->
+        
+</div>
+
+        <div class="products-grid">
+
+            
+            <div class="product-card">
+                <span class="tag" style="background: rgba(155, 81, 224, 0.1); color: var(--accent-purple);">Первый Чип</span>
+                <h3>FOGT 6610 ULTRA</h3>
+                <p>Квантово-фотонная видеокарта, превратившая RTX 5090 в калькулятор.</p>
+                <ul class="specs-list">
+                    <li>Вычислительная мощность: 1.2 Петафлопса</li>
+                    <li>Архитектура Nebula Core v1 (лазерные лучи)</li>
+                    <li>512 ГБ памяти HBM5X Ultra-Drive (15 ТБ/с)</li>
+                                </ul>
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 1 499 000 ₽</div>
+
+</ul>
+            </div>
+
+            <div class="product-card">
+                <span class="tag">Суперфлагман</span>
+                <h3>FOGT 16 PRO MAX ULTRA</h3>
+                <p>Мобильный титан на ALTOS, полностью уничтоживший Apple.</p>
+                <ul class="specs-list">
+                    <li>Дисплей Голографический Матрикс 960 Гц</li>
+                    <li>128-ядерный био-процессор Nexus X1</li>
+                    <li>Камера-Телескоп 1200 Мп с 200х зумом</li>
+                               </ul>
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 899 000 ₽</div>
+
+            </div>
+ </ul>
+            </div>
+
+            <div class="product-card">
+                <span class="tag">Гейминг</span>
+                <h3>FOGT 3x</h3>
+                <p>Игровая приставка будущего, погружающая в виртуальный мир.</p>
+                <ul class="specs-list">
+                    <li>Честное разрешение 16K при стабильных 240 FPS</li>
+                    <li>Квантовый накопитель ALTOS Drive на 20 ТБ</li>
+                    <li>Нейро-подключение MindLink силой мысли</li>
+                                </ul>
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 1 199 000 ₽</div>
+
+</ul>
+            </div>
+
+            <div class="product-card">
+                <span class="tag" style="background: rgba(255, 184, 0, 0.1); color: var(--accent-gold);">Топ Графика</span>
+                <h3>FOGT 7710 PRO</h3>
+                <p>Видеокарта на пико-технологиях для Голливуда и симуляций.</p>
+                <ul class="specs-list">
+                    <li>Фантастическая мощность: 15 Петафлопс</li>
+                    <li>2 Терабайта ультра-памяти Квант-RAM</li>
+                    <li>Автономное питание 0 Ватт от своего же тепла</li>
+                                </ul>
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 4 999 000 ₽</div>
+
+</ul>
+            </div>
+
+            <div class="product-card">
+                <span class="tag">Периферия</span>
+                <h3>FOGT 690</h3>
+                <p>Квантово-сенсорная клавиатура на магнитной левитации.</p>
+                <ul class="specs-list">
+                    <li>Переключатели Zero-Friction (бесконечный ресурс)</li>
+                    <li>Индивидуальные 120 Гц OLED-экраны на кнопках</li>
+                    <li>Защита от пролитого кофе по стандарту IP69</li>
+                                </ul>
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 349 000 ₽</div>
+
+</ul>
+            </div>
+
+            <div class="product-card">
+                <span class="tag">Процессоры</span>
+                <h3>FOGT 9980x3D</h3>
+                <p>Сердце суперкомпьютеров, не требующее охлаждения.</p>
+                <ul class="specs-list">
+                    <li>1024 био-квантовых ядра / 4096 потоков</li>
+                    <li>Экстремальная частота разгона до 120.0 ГГц</li>
+                    <li>Всегда прохладный (комнатные 22°C в стресс-тестах)</li>
+                                </ul>
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 2 199 000 ₽</div>
+
+</ul>
+            </div>
+
+            <div class="product-card">
+                <span class="tag">Звук</span>
+                <h3>FOGT 12 PRO PLUS</h3>
+                <p>Лазерно-акустический микрофон, пишущий колебания атомов.</p>
+                <ul class="specs-list">
+                    <li>Бесконечный динамический диапазон 320 дБ</li>
+                    <li>Полное удаление перфоратора соседа через ИИ</li>
+                    <li>Заряжается от кинетической энергии вашего голоса</li>
+                                </ul>
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 450 000 ₽</div>
+
+</ul>
+            </div>
+            <!-- 20. Секретная видеокарта FOGT 8099 ULTRA (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="gpu" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #1d1126 100%)'; this.style.borderColor='#ffb800'; this.style.boxShadow='0 0 30px rgba(255, 184, 0, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(255, 184, 0, 0.1); color: var(--accent-gold);">Сердце FOGT CLOUD</span>
+                <h3>FOGT 8099 ULTRA</h3>
+                <p>Базовый серверный чип облачной экосистемы тарифа GOD MODE. Обладает мощностью в 50 Петафлопс (уступает локальному флагману 9990 TI), оснащен 1 ТБ Квант-RAM и аппаратной поддержкой нейро-входа.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>50 Петафлопс проверенной графической мощности для стабильных нейросетевых симуляций в облаке</li>
+                    <li>1 Терабайт ультра-памяти Квант-RAM с пропускной способностью передачи данных до 35 ТБ/с</li>
+                    <li>Аппаратный ИИ-декодер ALTOS Mind-Link для стабильной игры через силу мысли без задержек</li>
+                    <li>Квантовое серверное охлаждение и полная интеграция во все вычислительные узлы Проекта ALTAIR</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 6 890 000 ₽</div>
+            </div>
+
+
+            <div class="product-card">
+                <span class="tag">Транспорт</span>
+                <h3>FOGT F1 PRO</h3>
+                <p>Двухколесный гиперкар мощностью в 150 лошадиных сил.</p>
+                <ul class="specs-list">
+                    <li>Максимальная скорость до 250 км/ч (0-100 за 0.8с)</li>
+                    <li>Запас хода 2500 км / Зарядка из воздуха 7G</li>
+                    <li>Магнитная подвеска Zero-Gravity гасит любые ямы</li>
+                                </ul>
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 3 899 000 ₽</div>
+
+</ul>
+            </div>
+
+                 <!-- 9. Монитор 202 PRO 32K -->
+            <div class="product-card" data-category="gpu">
+                <span class="tag" style="background: rgba(0, 242, 254, 0.1); color: var(--accent-neon);">Дисплеи</span>
+                <h3>FOGT 202 PRO 32K</h3>
+                <p>Безрамочный квантовый дисплей, уничтоживший все OLED-панели.</p>
+                <ul class="specs-list">
+                    <li>Разрешение: Настоящее 32K на квантовых кристаллах</li>
+                    <li>Частота обновления: До 1920 Гц в режиме Esports</li>
+                    <li>Технология Нейро-Фокуса (слежение за взглядом)</li>
+                                </ul>
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 2 499 000 ₽</div>
+
+</ul>
+            </div>
+
+                                    <!-- 10. Левитирующая мышка FOGT 984X (ИДЕАЛЬНЫЕ ОТСТУПЫ И ЧИСТАЯ ЦЕНА) -->
+            <div class="product-card" data-category="other" style="background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 0px;" onmouseover="this.style.borderColor='#ffb800'; this.style.boxShadow='0 0 20px rgba(255, 184, 0, 0.4)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none'; this.style.transform='none';">
+                <div>
+                    <span class="tag" style="background: rgba(255, 184, 0, 0.1); color: var(--accent-gold); display: inline-block; padding: 4px 12px; border-radius: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;">Периферия</span>
+                    <h3 style="font-size: 22px; margin-bottom: 10px; color: #fff;">FOGT 984X</h3>
+                    <p style="color: var(--text-muted); font-size: 14px; line-height: 1.5; margin-bottom: 15px;">Левитирующая беспроводная мышь весом всего 15 грамм. Парит над столом TABLE 3141 на высоте 1 см. Оптический сенсор на 50 000 DPI.</p>
+                </div>
+                <!-- Одна чистая золотая цена строго по центру -->
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 15px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 289 000 ₽</div>
+            </div>
+
+
+            <!-- 15. Портативная консоль FOGT DECK GO (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="other" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #24190d 100%)'; this.style.borderColor='#ffb800'; this.style.boxShadow='0 0 30px rgba(255, 184, 0, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(255, 184, 0, 0.1); color: var(--accent-gold);">Портативный Гейминг</span>
+                <h3>FOGT DECK GO</h3>
+                <p>Портативная квантовая консоль весом 290г. Мощность 5 Петафлопс, экран OLED 360 Гц и до 7 дней автономной игры.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>32-ядерный чип Nexus Mobile и встроенная квантовая графика</li>
+                    <li>Безрамочный дисплей OLED Crystal 360 Гц с идеальным черным цветом</li>
+                    <li>Пассивное абсолютно бесшумное охлаждение корпуса</li>
+                    <li>Атомно-графеновая батарея на неделю автономного гейминга</li>
+                </ul>
+                <!-- Простая, лаконичная цена по центру -->
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 649 000 ₽</div>
+            </div>
+            <!-- 16. Умный стол FOGT TABLE 3141 (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="other" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #170d24 100%)'; this.style.borderColor='#9b51e0'; this.style.boxShadow='0 0 30px rgba(155, 81, 224, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(155, 81, 224, 0.1); color: #9b51e0;">Умная Мебель</span>
+                <h3>FOGT TABLE 3141</h3>
+                <p>Умный стол со столешницей-экраном из квантового стекла. Встроенный ПК, магнитная левитация гаджетов и климат-контроль рук.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Вся поверхность стола — это прочный сенсорный дисплей под системой ALTOS</li>
+                    <li>Встроенные индукторы Float v1 для левитации парящих мышек и клавиатур</li>
+                    <li>Зарядное поле Air-Charge: питает всю электронику в радиусе 1 метра без проводов</li>
+                    <li>Встроенный в ножку суперкомпьютер и термо-регуляция температуры стекла</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 3 499 000 ₽</div>
+            </div>
+            <!-- 17. Супер роутер ROUTER ULTRA (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="core" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #0d2024 100%)'; this.style.borderColor='#00f2fe'; this.style.boxShadow='0 0 30px rgba(0, 242, 254, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(0, 242, 254, 0.1); color: #00f2fe;">Сетевое Оборудование</span>
+                <h3>FOGT ROUTER ULTRA</h3>
+                <p>Квантовый супер роутер со скоростью до 10 Тбит/с. Пинг 0 мс, лазерное покрытие на 5 км и сквозной пробой любых стен.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Скорость связи до 10 Тбит/с через низкоорбитальные лазерные спутники ALTAIR</li>
+                    <li>Квантовая синхронизация с нулевым пингом для идеального гейминга в FOGT CLOUD</li>
+                    <li>Технология S-Wave: покрытие 5 км и свободный пробой любых бетонных стен</li>
+                    <li>Абсолютный квантовый фаервол и раздача энергии девайсам по воздуху</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 599 000 ₽</div>
+            </div>
+
+
+
+</ul>
+                        <!-- 11. Нейро-шлем FOGT VISION X (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="other" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #171126 100%)'; this.style.borderColor='var(--accent-purple)'; this.style.boxShadow='0 0 30px rgba(155, 81, 224, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(155, 81, 224, 0.1); color: var(--accent-purple);">Нейро-Гаджеты</span>
+                <h3>FOGT VISION X</h3>
+                <p>Нейро-шлем смешанной реальности весом 90г. Проекция 16K на сетчатку глаза и управление чистой силой мысли.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Quantum Vision: разрешение 16K на каждый глаз</li>
+                    <li>Полный нейроинтерфейс Mind-Link (управление мыслью)</li>
+                    <li>ИИ-сканирование комнаты для смешанной реальности</li>
+                    <li>Вес 90 грамм и бесконечный заряд по воздуху</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 5 999 000 ₽</div>
+            </div>
+
+            <!-- 12. Наушники FOGT BEATS PRO (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="other" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #0d1e24 100%)'; this.style.borderColor='#00ffaa'; this.style.boxShadow='0 0 30px rgba(0, 255, 170, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(0, 255, 170, 0.1); color: #00ffaa;">Аудио-Системы</span>
+                <h3>FOGT BEATS PRO</h3>
+                <p>Беспроводные наушники с бесконечной автономностью. Заряжаются от тепла тела, создают 3D-звук прямо в голове.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Audio-Shock v2: объемный звук через костный био-резонанс</li>
+                    <li>Шумоподавление Absolute Silence (полная тишина в любых условиях)</li>
+                    <li>Автоматический подбор треков под твой пульс и настроение</li>
+                    <li>Вес 65 грамм и вечная зарядка от естественного тепла человека</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 1 899 000 ₽</div>
+            </div>
+
+            <!-- 13. Игровой ноутбук 6R PRO MAX (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="core" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #1c0d24 100%)'; this.style.borderColor='#9b51e0'; this.style.boxShadow='0 0 30px rgba(155, 81, 224, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(155, 81, 224, 0.1); color: #9b51e0;">Портативные ПК</span>
+                <h3>FOGT 6R PRO MAX</h3>
+                <p>Квантовый игровой ноутбук мощностью 25 Петафлопс. Экран 16K 960 Гц, 60 дней автономности и ледяной корпус 15°C.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Сдвоенный био-чип Nexus Core Dynamic и графика Multiverse v2</li>
+                    <li>Дисплей 16K на квантово-плазменных кристаллах с изгибом</li>
+                    <li>30 Терабайт ультра-памяти ALTOS Drive 2 (загрузка за 0 сек)</li>
+                    <li>Вакуумное бесшумное охлаждение Absolute Zero</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 7 499 000 ₽</div>
+            </div>
+
+            <!-- 14. Очки с камерой FOGT X (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="other" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #1a221f 100%)'; this.style.borderColor='#00f2fe'; this.style.boxShadow='0 0 30px rgba(0, 242, 254, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(0, 242, 254, 0.1); color: #00f2fe;">Умная Оптика</span>
+                <h3>FOGT X</h3>
+                <p>Смарт-очки с молекулярной 240 Мп камерой весом 38г. Голографический AR-интерфейс, ИИ-подсказчик реальности и вечный заряд от солнца.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Nano-Lens v1 камера (съемка 8K 120 FPS и полное сканирование среды)</li>
+                    <li>Стекла Crystal-AR v2 с выводом уведомлений, карт и виджетов прямо на линзы</li>
+                    <li>Встроенный ИИ-переводчик речи на лету и умный распознаватель объектов</li>
+                    <li>Корпус из био-титана весом 38 грамм и зарядка от тепла лица Ambient-Power</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 990 000 ₽</div>
+            </div>
+            <!-- 18. Молекулярный 3D-принтер MATTER V1 (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="core" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #24140d 100%)'; this.style.borderColor='#ff7700'; this.style.boxShadow='0 0 30px rgba(255, 119, 0, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(255, 119, 0, 0.1); color: #ff7700;">Создание Материи</span>
+                <h3>FOGT MATTER V1</h3>
+                <p>Молекулярный 3D-принтер, собирающий объекты напрямую из атомов воздуха. Скорость 500г/с, сканирование структуры и вечный доступ к облаку чертежей.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Фотонно-молекулярный синтез: сборка еды, одежды и микросхем на атомном уровне</li>
+                    <li>Высокоскоростная материализация объектов со скоростью до 500 грамм материи в секунду</li>
+                    <li>Встроенный ИИ-сканер дефектов для мгновенного ремонта и восстановления сломанных вещей</li>
+                    <li>Вакуумная камера печати 1x1x1м и беспроводное квантовое питание Air-Charge</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 14 899 000 ₽</div>
+            </div>
+            <!-- 19. Видеокарта FOGT 9990 TI (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" data-category="gpu" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #0d2414 100%)'; this.style.borderColor='#00ffaa'; this.style.boxShadow='0 0 30px rgba(0, 255, 170, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(0, 255, 170, 0.1); color: #00ffaa;">Локальный ультиматум</span>
+                <h3>FOGT 9990 TI</h3>
+                <p>Эксклюзивный графический чип мощностью 100 Петафлопс. Создан строго для домашнего использования (не применяется в FOGT CLOUD). Рендеринг 32K 960 FPS и генерация миров силой мысли.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>100 Петафлопс чистой графической мощности на квантово-матричных кристаллах</li>
+                    <li>2 Терабайта ультра-памяти Квант-VRAM со скоростью передачи данных до 50 ТБ/с</li>
+                    <li>Автономная архитектура: вся вычислительная сила остаётся локально на вашем ПК</li>
+                    <li>Сопроцессор Mind-Render: визуализация локальных игровых миров напрямую из мыслей</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 9 890 000 ₽</div>
+            </div>
+                        <!-- 21. Суперкомпьютер 234 PRO MAX++ (АБСОЛЮТНЫЙ ФИКС КАТЕГОРИИ PC) -->
+            <div class="product-card" data-category="pc" style="grid-column: 1 / -1; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #150d24 100%)'; this.style.borderColor='#9b51e0'; this.style.boxShadow='0 0 35px rgba(155, 81, 224, 0.5)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(155, 81, 224, 0.1); color: #9b51e0; display: inline-block; padding: 5px 15px; border-radius: 15px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;">Готовые Системы</span>
+                <h3 style="font-size: 28px; margin-bottom: 10px;">FOGT 234 PRO MAX++</h3>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Ультимативная готовая сборка мощностью 200 Петафлопс. Два процессора 9980x3D, связка видеокарт 9990 TI, 100 ТБ памяти и ледяной вакуумный корпус.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; list-style: none; padding: 0;">
+                    <li style="color: #e0e0e6; font-size: 14px;">⚡ 2048 био-квантовых ядер на частоте 240.0 ГГц для любых массивных симуляций будущего</li>
+                    <li style="color: #e0e0e6; font-size: 14px;">🎮 Две локальные видеокарты FOGT 9990 TI в лазерной связке выдают честные 32K при 960 FPS</li>
+                    <li style="color: #e0e0e6; font-size: 14px;">💾 Сверхскоростной массив ALTOS Drive 2 на 100 Терабайт с мгновенным откликом системы</li>
+                    <li style="color: #e0e0e6; font-size: 14px;">🧊 Полная вакуумная изоляция компонентов на магнитной левитации и беспроводное питание</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 24 999 000 ₽</div>
+            </div>
+            <!-- 22. Смартфон FOGT 19 PRO PLATINUM (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #1f2426 100%)'; this.style.borderColor='#e5e9ec'; this.style.boxShadow='0 0 35px rgba(229, 233, 236, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(229, 233, 236, 0.1); color: #e5e9ec;">Ультимативный Премиум</span>
+                <h3>FOGT 19 PRO PLATINUM</h3>
+                <p>Платиновый квантовый суперфлагман мощностью 15 Петафлопс. Прозрачный голографический экран 480 Гц, молекулярная камера 320 Мп со спутниковой лазерной связью и вечным зарядом от тепла рук.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Чип Nexus Mobile Platinum на 15 Петафлопс для локального запуска тяжелейших ИИ-симуляций</li>
+                    <li>Корпус из неразрушимого платиново-титанового сплава с алмазным стеклом и прозрачной матрицей</li>
+                    <li>Камера Space-Focus 500x с молекулярным сенсором для идеальной съемки на расстоянии 5 км в темноте</li>
+                    <li>Изотопно-графеновая батарея с постоянной подзарядкой от тепла ладоней и лазерный модем ALTAIR</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 1 299 000 ₽</div>
+            </div>
+            <!-- 23. Игровые наушники FOGT HYPER 1 (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #0d1724 100%)'; this.style.borderColor='#00a2ff'; this.style.boxShadow='0 0 35px rgba(0, 162, 255, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(0, 162, 255, 0.1); color: #00a2ff;">Киберспорт</span>
+                <h3>FOGT HYPER 1</h3>
+                <p>Профессиональные игровые наушники с технологией костного био-резонанса. Абсолютное позиционирование звука 360°, ИИ-шумоподавление до 140 дБ, вес 45г и вечная зарядка от тепла тела.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Передача звука через костный резонанс напрямую во внутреннее ухо (уши остаются открытыми)</li>
+                    <li>Система Hyper-Trace: идеальное позиционирование шагов и выстрелов в шутерах с точностью до миллиметра</li>
+                    <li>Нейро-эквалайзер: автоматическая подстройка частот под пульс геймера во время тяжелых каток</li>
+                    <li>Корпус из гибкого углеволокна весом 45 грамм и вечное беспроводное питание Ambient-Power v2</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 499 000 ₽</div>
+            </div>
+            <!-- 24. ИИ-дрон сопровождения DRONE SENTINEL (НЕОН ТОЛЬКО ПРИ НАВЕДЕНИИ) -->
+            <div class="product-card" style="grid-column: 1 / -1; background: var(--card-bg); border-color: rgba(255,255,255,0.05); transition: all 0.4s ease;" onmouseover="this.style.background='linear-gradient(145deg, #0d0d16 0%, #0d2422 100%)'; this.style.borderColor='#00f2fe'; this.style.boxShadow='0 0 35px rgba(0, 242, 254, 0.4)';" onmouseout="this.style.background='var(--card-bg)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.boxShadow='none';">
+                <span class="tag" style="background: rgba(0, 242, 254, 0.1); color: #00f2fe;">Искусственный Интеллект</span>
+                <h3>FOGT DRONE SENTINEL</h3>
+                <p>Автономный ИИ-дрон сопровождения в виде бесшумной левитирующей сферы. Скорость до 180 км/ч, персональный узел интернета 10 Тбит/с, круговой сканер угроз и полная маскировка кузова.</p>
+                <ul class="specs-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <li>Бесшумный полет на магнитной квантовой левитации v2 без лопастей с авто-следованием за владельцем</li>
+                    <li>Персональная точка связи: ретрансляция лазерного интернета 10 Тбит/с со спутников в любой точке планеты</li>
+                    <li>Молекулярный лидар 360° для сканирования угроз, ночного лазерного подсвета и вывода голограмм в воздух</li>
+                    <li>Корпус хамелеон с режимом полной невидимости и беспроводная зарядка от кинетики и радиоволн</li>
+                </ul>
+                <div style="font-size: 24px; font-weight: 900; color: var(--accent-gold); margin-top: 25px; text-align: center; text-shadow: 0 0 10px rgba(255,184,0,0.3);">Цена: 2 199 000 ₽</div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+    <!-- Мозги для живого поиска по каталогу ALTAIR -->
+    <script>
+                        // Бронебойная функция переключения вкладок Проекта ALTAIR
+                // Ультимативная функция фильтрации Проекта ALTAIR
+                // Финальная точная функция фильтрации Проекта ALTAIR
+                // Мягкая и безопасная функция фильтрации Проекта ALTAIR
+        
+
+
+function liveSearch() {
+            let searchQuery = document.getElementById('catalogSearch').value.toLowerCase();
+            let cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                let title = card.querySelector('h3').innerText.toLowerCase();
+                let desc = card.querySelector('p').innerText.toLowerCase();
+                
+                if (title.includes(searchQuery) || desc.includes(searchQuery)) {
+                    card.style.display = 'block'; 
+                } else {
+                    card.style.display = 'none';  
+                }
+            });
+        }
+            function openLogin() { document.getElementById('loginOverlay').style.display = 'flex'; }
+        function closeLogin() { document.getElementById('loginOverlay').style.display = 'none'; }
+        function submitLogin() {
+            let user = document.getElementById('loginUser').value;
+            if(user.trim() === "") user = "CEO";
+            document.getElementById('loginBtn').innerText = user;
+            document.getElementById('loginBtn').style.background = '#9b51e0';
+            document.getElementById('loginBtn').style.color = '#fff';
+            closeLogin();
+            alert('Успешный вход под именем ' + user + '!');
+        }
+        function submitGoogleLogin() {
+            document.getElementById('loginBtn').innerText = "Google_User";
+            document.getElementById('loginBtn').style.background = '#4285F4';
+            document.getElementById('loginBtn').style.color = '#fff';
+            closeLogin();
+            alert('Вход через Google сымитирован!');
+        }
+</script>
+</body>
+</html>
+
+    ...
+
+
+
