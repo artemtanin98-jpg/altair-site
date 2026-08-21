@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTAIR Support | Центр Поддержки</title>
+    <style>
+        :root {
+            --bg: #050508;
+            --card: #0d0d16;
+            --neon: #00f2fe;
+            --purple: #9b51e0;
+            --gold: #ffb800;
+            --text: #ffffff;
+            --muted: #8282aa;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-top: 100px; }
+
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 8%; background: rgba(5, 5, 8, 0.9); backdrop-filter: blur(10px);
+            position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .logo {
+            font-size: 28px; font-weight: 800; letter-spacing: 3px;
+            background: linear-gradient(45deg, var(--neon), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        header nav a {
+            color: var(--text); text-decoration: none; margin-left: 35px;
+            font-size: 16px; font-weight: 500; transition: 0.3s;
+        }
+        header nav a:hover { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+
+        section { padding: 40px 8%; max-width: 800px; margin: 0 auto; }
+        h2 {
+            font-size: 38px; text-align: center; margin-bottom: 10px; text-transform: uppercase;
+            letter-spacing: 2px; background: linear-gradient(90deg, var(--neon), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .subtitle { text-align: center; color: var(--muted); margin-bottom: 50px; font-size: 18px; }
+
+        /* Стильный блок формы */
+        .support-box { background: var(--card); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 40px; box-shadow: 0 0 30px rgba(0, 242, 254, 0.05); margin-bottom: 40px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 14px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .form-input { width: 100%; padding: 14px 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; color: #fff; font-size: 16px; outline: none; transition: 0.3s; }
+        .form-input:focus { border-color: var(--neon); box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+        textarea.form-input { border-radius: 15px; resize: none; height: 120px; }
+
+        .btn-submit { width: 100%; padding: 15px; background: linear-gradient(45deg, var(--neon), #00ffaa); color: #000; border: none; border-radius: 30px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 0 25px var(--neon); }
+
+        /* Блок контактов */
+        .contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; text-align: center; }
+        .contact-item { background: var(--card); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); }
+        .contact-item h4 { color: var(--neon); margin-bottom: 10px; font-size: 16px; text-transform: uppercase; }
+        .contact-item p { color: #e0e0e6; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ALTAIR</div>
+        <nav style="display: inline-block;">
+    <a href="index.html" style="color: #fff; transition: 0.3s;" onmouseover="this.style.color='#00f2fe'; this.style.textShadow='0 0 10px #00f2fe';" onmouseout="this.style.color='#fff'; this.style.textShadow='none';">Главная</a>
+    <a href="hardware.html" style="color: #fff; transition: 0.3s;" onmouseover="this.style.color='#00f2fe'; this.style.textShadow='0 0 10px #00f2fe';" onmouseout="this.style.color='#fff'; this.style.textShadow='none';">Устройства</a>
+    <a href="cloud.html" style="color: #fff; transition: 0.3s;" onmouseover="this.style.color='#00f2fe'; this.style.textShadow='0 0 10px #00f2fe';" onmouseout="this.style.color='#fff'; this.style.textShadow='none';">FOGT CLOUD</a>
+    <a href="support.html" style="color: #00f2fe; text-shadow: 0 0 10px #00f2fe;">Поддержка</a>
+    <!-- НАША УЛЬТИМАТИВНАЯ НЕОНОВАЯ КНОПКА ВОЙТИ -->
+    <button id="loginBtn" onclick="openLogin()" style="margin-left: 35px; padding: 10px 24px; font-size: 14px; font-weight: 700; color: #000; background: #00f2fe; border: none; border-radius: 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 15px rgba(0, 242, 254, 0.5); transition: all 0.3s ease; display: inline-block; vertical-align: middle; margin-top: -3px;" onmouseover="this.style.transform='translateY(-2px) scale(1.02)'; this.style.boxShadow='0 0 25px #00f2fe, 0 0 45px rgba(0, 242, 254, 0.7)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 0 15px rgba(0, 242, 254, 0.5)';">Войти</button>
+</nav>
+
+    </header>    <!-- СКРЫТОЕ ОКНО АВТОРИЗАЦИИ ДЛЯ ПОДДЕРЖКИ -->
+    <div class="login-overlay" id="loginOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 8, 0.85); backdrop-filter: blur(15px); display: none; justify-content: center; align-items: center; z-index: 2000;">
+        <div class="login-box" style="background: var(--card); border: 2px solid #00f2fe; border-radius: 20px; padding: 40px; width: 380px; text-align: center; position: relative; box-shadow: 0 0 30px rgba(0, 242, 254, 0.3);">
+            <span class="close-login" onclick="closeLogin()" style="position: absolute; top: 15px; right: 20px; font-size: 22px; color: var(--muted); cursor: pointer;">&times;</span>
+            <h3 style="font-size: 24px; margin-bottom: 25px; text-transform: uppercase; color: #fff;">Вход в ALTOS ID</h3>
+            <input type="text" class="login-input" placeholder="Имя пользователя" id="loginUser" style="width: 100%; padding: 12px 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; color: #fff; font-size: 16px; margin-bottom: 15px; outline: none;">
+            <input type="password" class="login-input" placeholder="Пароль" style="width: 100%; padding: 12px 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; color: #fff; font-size: 16px; margin-bottom: 15px; outline: none;">
+            <button class="btn-submit-login" onclick="submitLogin()" style="width: 100%; padding: 12px; background: #00f2fe; color: #000; border: none; border-radius: 25px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-bottom: 15px;">Войти</button>
+            <div style="color: var(--muted); font-size: 12px; margin-bottom: 15px;">или</div>
+            <button class="google-mock-btn" onclick="submitGoogleLogin()" style="width: 100%; padding: 12px; background: #fff; color: #757575; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">Войти через Google</button>
+        </div>
+    </div>
+
+
+    <section>
+        <h2>Служба Поддержки ALTOS</h2>
+        <p class="subtitle">Возникли вопросы или сбой квантового ядра? Напишите нашему ИИ-инженеру:</p>
+
+        <div class="support-box">
+            <div class="form-group">
+                <label>Ваш ALTOS ID / Email</label>
+                <input type="text" class="form-input" placeholder="example@altair.com" id="supportEmail">
+            </div>
+            <div class="form-group">
+                <label>Тема обращения</label>
+                <input type="text" class="form-input" placeholder="Проблема с тарифом GOD MODE / Ошибка чипа" id="supportSubject">
+            </div>
+            <div class="form-group">
+                <label>Описание проблемы</label>
+                <textarea class="form-input" placeholder="Опишите вашу ситуацию в подробностях..." id="supportMessage"></textarea>
+            </div>
+            <button class="btn-submit" onclick="sendTicket()">Отправить тикет</button>
+        </div>
+
+        <div class="contacts-grid">
+            <div class="contact-item">
+                <h4>Штаб-квартира</h4>
+                <p>Нео-Токио, ALTAIR Tower, этаж 142</p>
+            </div>
+            <div class="contact-item">
+                <h4>Квантовый узел</h4>
+                <p>Раздел координируется ИИ-модулем ALTOS</p>
+            </div>
+            <div class="contact-item">
+                <h4>Комьюнити</h4>
+                <p>Розыгрыши и апдейты в нашем Telegram</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function sendTicket() {
+            let email = document.getElementById('supportEmail').value;
+            if(email.trim() === "") {
+                alert("Пожалуйста, введите ваш Email или ALTOS ID для связи с квантовой сетью.");
+                return;
+            }
+            alert("Тикет успешно зашифрован и отправлен в дата-центр ALTAIR! Наши ИИ-инженеры свяжутся с вами в течение 0.003 секунды прямо в вашей нейросети.");
+            document.getElementById('supportEmail').value = "";
+            document.getElementById('supportSubject').value = "";
+            document.getElementById('supportMessage').value = "";
+        }
+            // Функции открытия окна авторизации ALTOS ID для Поддержки
+        function openLogin() {
+            var overlay = document.getElementById('loginOverlay');
+            if (overlay) {
+                overlay.style.display = 'flex';
+            } else {
+                alert('Ошибка: Окно авторизации не найдено в коде страницы.');
+            }
+        }
+        function closeLogin() {
+            var overlay = document.getElementById('loginOverlay');
+            if (overlay) overlay.style.display = 'none';
+        }
+        function submitLogin() {
+            let user = document.getElementById('loginUser').value;
+            if(user.trim() === "") user = "CEO";
+            document.getElementById('loginBtn').innerText = user;
+            document.getElementById('loginBtn').style.background = '#9b51e0';
+            document.getElementById('loginBtn').style.color = '#fff';
+            closeLogin();
+            alert('Успешный вход под именем ' + user + '! Квантовый профиль ALTOS ID активирован.');
+        }
+        function submitGoogleLogin() {
+            document.getElementById('loginBtn').innerText = "Google_User";
+            document.getElementById('loginBtn').style.background = '#4285F4';
+            document.getElementById('loginBtn').style.color = '#fff';
+            closeLogin();
+            alert('Вход через Google успешно сымитирован!');
+        }
+</script>
+</body>
+</html>
